@@ -56,10 +56,10 @@ VALUES
     ('Company JJ', 'Manufacturing', 370.0, 3100, 1, 20, 12, 7.6),
     ('Company KK', 'Healthcare', 150.2, 3400, 0, 16, 8, 5.3);
 
-//Shows the table//
+#Shows the table
 SELECT * FROM fortune_companies;
 
-//
+#Shows average employee tenure using CASE statement
 --For this query, show how many companies has an average employee tenure more more than 5 years or less than 5 years)--
 SELECT COUNT(*),
 CASE WHEN avg_employee_tenure >= 5 THEN "5 years or more"
@@ -67,34 +67,40 @@ ELSE "Under 5 years" END AS avg_years_tenure
 FROM fortune_companies
 GROUP BY avg_years_tenure;
 
+#Shows revenue for each industry using HAVING clause
 --Calculate how much revenue there is per year for each industry where the total revenue(billions) is at least 500(billion. Include industry and the total revenue.--
 SELECT industry, ROUND(SUM(revenue),2) AS total_revenue_billions
 FROM fortune_companies
 GROUP by industry
 HAVING total_revenue_billions >= 500;
 
+#Show benefits and maternity leave weeks using AND
 --Write a query that uses AND to show companies that have healthcare benefits AND at least 10 weeks of maternity_leave_weeks.--
 SELECT company_name, healthcare_benefits, maternity_leave_weeks 
 FROM fortune_companies
 WHERE healthcare_benefits = 1
 AND maternity_leave_weeks >= 10;
 
+#Shows paid time off and maternity leave weeks using OR
 --Write a query that uses OR to show companies that have at least 15 days of paid time off or 10 weeks of maternity leave. Show the company name and the amount of days or weeks. 
 SELECT company_name, paid_time_off_days, maternity_leave_weeks
 FROM fortune_companies
 WHERE paid_time_off_days >= 15
 OR maternity_leave_weeks >= 10;
 
+#Shows average employee in each industry using AVG()
 --List the average number of employees in each industry, round by 2 decimal places and save as avg_employees--
 SELECT industry, ROUND(AVG(employees),2) AS avg_employees
 FROM fortune_companies
 GROUP BY industry;
 
+#Shows the company with the most revenue in the Technology industry using MAX()
 --Which company in the Technology industry has the most revenue, and what is their revenue?--
 SELECT company_name, ROUND(MAX(revenue),2)
 FROM fortune_companies
 WHERE industry = "Technology";
 
+#Shows the company with the least revenue in the Energy industry using MIN()
 --Which company in the Energy industry has the least revenue, and what is their revenue?--
 SELECT company_name, ROUND(MIN(revenue),2)
 FROM fortune_companies
